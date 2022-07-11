@@ -542,7 +542,8 @@ namespace YuanBo.K3.Interface.Helper
                         FFORBIDDERID = 0,
                         F_PAEZ_Base1 = {deptId}
                  WHERE  FNUMBER = '{number}'
-                   AND  FFORBIDSTATUS = 'B'";
+                   --AND  FFORBIDSTATUS = 'B'
+";
 
             return DBUtils.Execute(context, sql);
         }

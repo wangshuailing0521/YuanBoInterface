@@ -24,6 +24,7 @@ namespace YuanBo.K3.Interface
 
             e.FieldKeys.Add("FSALEDEPTID");
             e.FieldKeys.Add("F_PAEZ_Text");
+            e.FieldKeys.Add("F_PAEZ_Text1");
             e.FieldKeys.Add("F_PAEZ_Text2");
         }
 
@@ -49,7 +50,7 @@ namespace YuanBo.K3.Interface
                 }
                 catch (Exception ex)
                 {
-                    sb.AppendLine($@"错误信息：{ex.Message.ToString()}");
+                    sb.AppendLine($@"错误信息：{ex.Message}");
                     Logger.Error("", sb.ToString(), ex);
 
                     throw new Exception(ex.Message.ToString());
@@ -62,6 +63,7 @@ namespace YuanBo.K3.Interface
             string billNo = billObj["BillNo"].ToString();
             string fpNumber = billObj["F_PAEZ_Text"].ToString();
             string kdNumber = billObj["F_PAEZ_Text2"].ToString();
+            string cnNumber = billObj["F_PAEZ_Text1"].ToString();
             DynamicObject dept = billObj["SALEDEPTID"] as DynamicObject;
             string deptId = dept["Id"].ToString();
 
@@ -83,7 +85,8 @@ namespace YuanBo.K3.Interface
             {
                 state = 3,
                 invoice_number = fpNumber,
-                courier_number = kdNumber
+                courier_number = kdNumber,
+                contract_number = cnNumber
             };
 
             string json = JsonHelper.ToJSON(requestInfo);
