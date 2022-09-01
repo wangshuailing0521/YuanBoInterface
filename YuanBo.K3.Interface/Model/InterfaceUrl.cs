@@ -27,5 +27,7 @@ namespace YuanBo.K3.Interface.Model
         public string ReceBillStatusUrl { get; set; }
 
         public string HXUrl { get; set; }
+
+        public string ReceivablePlanUrl { get; set; }
     }
 }

@@ -527,7 +527,7 @@ namespace YuanBo.K3.Interface.Schedule.FK
                                 #endregion
 
                                 #region 创建员工任岗明细
-                                string staffNumber = "GW" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                                //string staffNumber = "GW" + DateTime.Now.ToString("yyyyMMddHHmmss");
                                 sb.AppendLine($@"开始创建员工任岗明细:{custNo}");
 
                                 KingdeeStaffModel staffModel = new KingdeeStaffModel();

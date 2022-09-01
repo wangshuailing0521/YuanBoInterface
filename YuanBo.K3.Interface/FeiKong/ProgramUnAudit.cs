@@ -139,9 +139,9 @@ namespace YuanBo.K3.Interface.FeiKong
 
             #endregion
 
-            #region 删除成本中心项
+            #region 禁用成本中心项
 
-            sb.AppendLine($@"删除成本中心项");
+            sb.AppendLine($@"禁用成本中心项");
 
             url = "https://api.huilianyi.com/gateway/api/open/costCenterItem";
             url = url + $@"?access_token={token}";
@@ -168,8 +168,8 @@ namespace YuanBo.K3.Interface.FeiKong
             }
             else
             {
-                SqlHelper.UpdateAssistant(this.Context, billObj["Id"].ToString(), "");
-                billObj["FOid"] = "";
+                //SqlHelper.UpdateAssistant(this.Context, billObj["Id"].ToString(), "");
+                //billObj["FOid"] = "";
             }
 
             #endregion

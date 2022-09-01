@@ -63,14 +63,15 @@ namespace YuanBo.K3.Interface.FeiKong
                 try
                 {
                     fkId = billObj["FOid"].ToString();
-                    if (string.IsNullOrWhiteSpace(fkId))
-                    {
-                        Add(sb, billObj);
-                    }
-                    else
-                    {
-                        sb.AppendLine($@"详细信息：项目编码{billObj["Number"].ToString()}已存在");
-                    }
+                    //if (string.IsNullOrWhiteSpace(fkId))
+                    //{
+                    //    Add(sb, billObj);
+                    //}
+                    //else
+                    //{
+                    //    sb.AppendLine($@"详细信息：项目编码{billObj["Number"].ToString()}已存在");
+                    //}
+                    Add(sb, billObj);
                     Logger.Info("", sb.ToString());
                 }
                 catch (Exception ex)
@@ -93,15 +94,20 @@ namespace YuanBo.K3.Interface.FeiKong
             string[] dataValues = dataValue.Split('-');
             string dept = dataValues[0];
             string deptNo = SqlHelper.GetHlyDeptNo(this.Context, dept);
+           
             if (deptNo == "")
             {
                 throw new KDException("错误", $@"部门名称【{dept}】不存在！");
             }
 
+            string fkId = "";
+            if (billObj["FOid"] != null)
+            {
+                fkId = billObj["FOid"].ToString();
+            }
+
             string token = GetToken();
             List<HLYDept> list = new List<HLYDept>();
-
-
 
             #region 创建成本中心项
 
@@ -115,13 +121,22 @@ namespace YuanBo.K3.Interface.FeiKong
                 name = billObj["DataValue"].ToString(),
                 code = billObj["Number"].ToString(),
                 isQuerySubdivision = true,
+                enabled = true,
                 setOfBooksCode = "DEFAULT_SOB"
             };
 
             string json = JsonHelper.ToJSON(requestInfo);
             sb.AppendLine($@"请求地址：{url}");
             sb.AppendLine($@"请求信息：{json}");
-            response = ApiHelper.HttpRequest(url, json, "POST");
+            if (string.IsNullOrWhiteSpace(fkId))
+            {
+                response = ApiHelper.HttpRequest(url, json, "POST");
+            }
+            else
+            {
+                response = ApiHelper.HttpRequest(url, json, "PUT");
+            }
+            
             sb.AppendLine($@"返回信息：{response}");
 
             #region 解析返回信息

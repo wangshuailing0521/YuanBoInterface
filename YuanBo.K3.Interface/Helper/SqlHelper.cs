@@ -78,9 +78,9 @@ namespace YuanBo.K3.Interface.Helper
         {
             string sql = $@"
                 SELECT  A.FNUMBER
-                  FROM  T_ORG_POST A       
-                        INNER JOIN T_BD_STAFF D ON D.FPOSTID = A.FPOSTID
-                        INNER JOIN T_HR_EMPINFO E ON D.FEMPINFOID = E.FID
+                  FROM  T_ORG_POST A WITH(NOLOCK)     
+                        INNER JOIN T_BD_STAFF D WITH(NOLOCK) ON D.FPOSTID = A.FPOSTID
+                        INNER JOIN T_HR_EMPINFO E WITH(NOLOCK) ON D.FEMPINFOID = E.FID
                  WHERE  A.FNUMBER = '{dutyCode}'
                    AND  E.FNUMBER = '{empNo}'";
             DynamicObjectCollection data
@@ -240,6 +240,7 @@ namespace YuanBo.K3.Interface.Helper
                        ,FReceivableFPUrl
                        ,FReceivableKDUrl
                        ,FHXUrl
+                       ,FReceivablePlanUrl
                   FROM  T_BD_DEPARTMENT
                  WHERE  FDEPTID = {deptId}";
             DynamicObjectCollection data
@@ -264,6 +265,7 @@ namespace YuanBo.K3.Interface.Helper
                     FReceivableFPUrl = data[0]["FReceivableFPUrl"].ToString(),
                     FReceivableKDUrl = data[0]["FReceivableKDUrl"].ToString(),
                     HXUrl = data[0]["FHXUrl"].ToString(),
+                    ReceivablePlanUrl = data[0]["FReceivablePlanUrl"].ToString()
                 };
 
             return interfaceUrl;
